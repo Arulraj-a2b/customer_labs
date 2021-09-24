@@ -1,11 +1,11 @@
-import { CSSProperties, ReactChild } from "react";
+import { CSSProperties, ReactChild, ReactNode } from "react";
 import classNames from "classnames/bind";
 import styles from "./flex.module.css";
 
 const cx = classNames.bind(styles);
 
 type Props = {
-  children: ReactChild;
+  children: ReactNode;
   row?: boolean;
   column?: boolean;
   className?: string;
@@ -44,10 +44,11 @@ const Flex = ({
   style,
 }: Props) => {
   const textClassName = cx(
+    "commonStyle",
     {
       row,
       center,
-      column: true,
+      column,
       between,
       around,
       top,

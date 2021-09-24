@@ -1,10 +1,16 @@
-import Text from '../../uikit/Text/Text'
+import Flex from "../../uikit/Flex/Flex";
+import Text from "../../uikit/Text/Text";
 
 const TopBar = () => {
   return (
-    <div>
-      <Text size={40} color='black'>hai</Text>
-    </div>
+    <Flex>
+      <Text size={40} color="black">
+        hai
+      </Text>
+      <Text size={40} color="black">
+        hai
+      </Text>
+    </Flex>
   );
 };
 
