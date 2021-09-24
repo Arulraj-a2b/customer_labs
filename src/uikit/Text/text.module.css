@@ -1,0 +1,57 @@
+.text-10 {
+  font-size: 10px;
+}
+.text-12 {
+  font-size: 12px;
+}
+.text-14 {
+  font-size: 14px;
+}
+.text-16 {
+  font-size: 18px;
+}
+.text-20 {
+  font-size: 20px;
+}
+.text-22 {
+  font-size: 22px;
+}
+.text-24 {
+  font-size: 24px;
+}
+.text-26 {
+  font-size: 26px;
+}
+.text-30 {
+  font-size: 30px;
+}
+.text-32 {
+  font-size: 34px;
+}
+.text-36 {
+  font-size: 36px;
+}
+.text-38 {
+  font-size: 38px;
+}
+.text-40 {
+  font-size: 40px;
+}
+.bold {
+  font-weight: bold;
+}
+.textAlign-center {
+  text-align: center;
+}
+.textAlign-left {
+  text-align: left;
+}
+.textAlign-right {
+  text-align: right;
+}
+.textColor-black{
+    color: #000;
+}
+.textColor-white{
+    color: #fff;
+}

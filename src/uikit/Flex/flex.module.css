@@ -1,0 +1,54 @@
+.flexAlign-center{
+    align-items: center;
+}
+  .reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .column {
+    flex-direction: column;
+  }
+  
+  .columnReverse {
+    flex-direction: column-reverse;
+  }
+  
+  .start {
+    justify-content: flex-start;
+  }
+  
+  .center {
+    justify-content: center;
+  }
+  
+  .end {
+    justify-content: flex-end;
+  }
+  
+  .around {
+    justify-content: space-around;
+  }
+  
+  .between {
+    justify-content: space-between;
+  }
+  
+  .top {
+    align-items: flex-start;
+  }
+  
+  .middle {
+    align-items: center;
+  }
+  
+  .bottom {
+    align-items: flex-end;
+  }
+  .wrap {
+    flex-wrap: wrap;
+  }
+  
+  .noWrap {
+    flex-wrap: no-wrap;
+  }
+  
