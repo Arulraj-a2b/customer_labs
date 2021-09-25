@@ -1,7 +1,7 @@
 .commonStyle {
   background-color: tomato;
-  width: 24px;
-  height: 24px;
+  width: 14px;
+  height: 14px;
   border-radius: 100%;
 }
 .error {
@@ -10,6 +10,6 @@
 .success {
   background-color: green;
 }
-.lableStyle{
-    padding-left: 16px;
+.lableStyle {
+  padding-left: 16px;
 }

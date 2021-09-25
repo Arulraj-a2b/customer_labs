@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import Flex from "../Flex/Flex";
 import Text from "../Text/Text";
 import { isEmpty } from "../helpers";
-import styles from "./flex.module.css";
+import styles from "./indicator.module.css";
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -21,7 +21,7 @@ const Indicator = ({ label, color, className }: Props) => {
   return (
     <Flex row center>
       <div className={indicatorclassName} />
-      {isEmpty(label) && <Text className={styles.lableStyle}>{label}</Text>}
+      {!isEmpty(label) && <Text className={cx('lableStyle')}>{label}</Text>}
     </Flex>
   );
 };

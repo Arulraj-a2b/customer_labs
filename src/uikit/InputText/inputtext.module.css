@@ -1,7 +1,11 @@
 .inputStyle{
-    border: 1px solid red;
+    border: 1px solid #CCCCCC;
     border-radius: 4px;
+    padding: 12px 16px;
 }
 .inputStyle:hover{
-    border: 1px solid blue;
+    border: 1px solid #1890ff;
+}
+.label{
+    padding-bottom: 8px;
 }

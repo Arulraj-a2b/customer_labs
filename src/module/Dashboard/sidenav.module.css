@@ -10,3 +10,12 @@
   height: 100%;
   position: absolute;
 }
+.inputStyle {
+  margin-bottom: 24px;
+}
+.inputContainer {
+  margin: 32px 32px 32px 16px;
+}
+.indicatorContainer{
+  padding: 32px 0 0 0;
+}

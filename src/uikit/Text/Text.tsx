@@ -58,7 +58,7 @@ const Text = ({
 };
 
 const defaultProps = {
-  size: 16,
+  size: 14,
 };
 Text.defaultProps = defaultProps;
 export default Text;
