@@ -5,9 +5,10 @@ import { isEmpty } from "../helpers";
 import styles from "./indicator.module.css";
 
 const cx = classNames.bind(styles);
+export type indicatorColor= "error" | "success"
 type Props = {
   label?: string;
-  color?: "error" | "success";
+  color?: indicatorColor;
   className?: string;
 };
 const Indicator = ({ label, color, className }: Props) => {

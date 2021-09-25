@@ -13,9 +13,9 @@
 .primary:hover {
   opacity: 0.75;
 }
-.primary:active {
+/* .primary:active {
   background-color: #22726f;
-}
+} */
 
 .secondary {
   background-color: #fff;
@@ -29,13 +29,24 @@
 }
 .link {
   color: green;
-  font-size: 16px;
+  font-size: 14px;
+  padding: 0;
+  background-color: transparent;
+  text-align: start;
+  text-decoration: underline;
 }
 .link:hover {
   opacity: 0.75;
 }
 .link:active {
   color: greenyellow;
+}
+.success{
+  background-color: green;
+  color: #fff;
+}
+.success:hover{
+  opacity: 0.75;
 }
 .transparent {
   color: #fff;

@@ -11,7 +11,9 @@ type Props = {
   link?: boolean;
   transparent?: boolean;
   style?: CSSProperties;
-  onClick?: ()=>void
+  onClick?: () => void;
+  success?: boolean;
+  disabled?: boolean
 };
 const Button = ({
   children,
@@ -21,7 +23,9 @@ const Button = ({
   link,
   transparent,
   style,
-  onClick
+  onClick,
+  success,
+  disabled
 }: Props) => {
   const buttonClassName = cx(
     "commonStyle",
@@ -30,11 +34,12 @@ const Button = ({
       secondary,
       link,
       transparent,
+      success
     },
     className
   );
   return (
-    <button onClick={onClick} style={style} className={buttonClassName}>
+    <button disabled={disabled} onClick={onClick} style={style} className={buttonClassName}>
       {children}
     </button>
   );

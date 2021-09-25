@@ -12,13 +12,25 @@ type Props = {
   placeholder?: string;
   value?: string;
   label?: string;
+  onChange?: any;
+  name?: string;
 };
-const InputText = ({ className, style, placeholder, value, label }: Props) => {
+const InputText = ({
+  onChange,
+  className,
+  style,
+  placeholder,
+  value,
+  label,
+  name,
+}: Props) => {
   const flexClassName = cx("inputStyle", {}, className);
   return (
     <Flex>
       {!isEmpty(label) && <Text className={styles.label}>{label}</Text>}
       <input
+        name={name}
+        onChange={onChange}
         value={value}
         placeholder={placeholder}
         className={flexClassName}

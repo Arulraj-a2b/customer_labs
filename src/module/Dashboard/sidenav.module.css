@@ -16,6 +16,9 @@
 .inputContainer {
   margin: 32px 32px 32px 16px;
 }
-.indicatorContainer{
-  padding: 32px 0 0 0;
+.indicatorContainer {
+  padding: 32px 0 32px 0;
+}
+.addBtn{
+  padding: 16px 0px 0 28px;
 }

@@ -1,0 +1,11 @@
+.bottomContainer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: #b3b3b3;
+  padding: 16px 0;
+}
+.saveBtn {
+  margin: 0 16px;
+}

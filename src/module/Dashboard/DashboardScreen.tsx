@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 import styles from "./dashboardscreen.module.css";
 import SideNav from "./SideNav";
 import { useState } from "react";
+import AddMore from "./AddMore";
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +26,7 @@ const DashboardScreen = () => {
       {isModal && 
       <SideNav sideBarOnClick={handleClose} />
       }
+      {/* <AddMore /> */}
     </Flex>
   );
 };

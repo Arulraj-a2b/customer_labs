@@ -5,17 +5,24 @@ import classNames from "classnames/bind";
 import styles from "./sidenav.module.css";
 import TopBar from "./TopBar";
 import Indicator from "../../uikit/Indicator/Indicator";
+import Select from "../../uikit/Select/Select";
+import Button from "../../uikit/Button/Button";
+import BottomButton from "./BottomButton";
+import { FieldArray, Formik } from "formik";
+import AddMore from "./AddMore";
 
 const cx = classNames.bind(styles);
 type Props = {
   sideBarOnClick: () => void;
 };
+
 const SideNav = ({ sideBarOnClick }: Props) => {
   return (
     <Flex className={styles.overAll} style={{ height: window.innerHeight }}>
       <Flex className={cx("sideNav")}>
         <TopBar onClick={sideBarOnClick} title={"Saving Segament"} />
-        <Flex className={styles.inputContainer}>
+        <AddMore />
+        {/* <Flex className={styles.inputContainer}>
           <InputText
             label={"Enter the Name of the Segment"}
             placeholder={"Name of the Segment"}
@@ -29,8 +36,9 @@ const SideNav = ({ sideBarOnClick }: Props) => {
               <Indicator color="success" label="- User Traits" />
             </Flex>
             <Indicator color="error" label="- Groups Traits" />
-          </Flex>
-        </Flex>
+          </Flex> */}
+          {/* <AddMore /> */}
+        {/* </Flex> */}
       </Flex>
     </Flex>
   );

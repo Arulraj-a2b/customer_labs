@@ -1,0 +1,37 @@
+.selectStyle {
+  padding: 12px 16px;
+  width: 100%;
+  border-radius: 4px;
+  border-color: #cccccc;
+}
+.selectStyle:hover {
+  border: 1px solid #1890ff;
+}
+.selectTagContainer select {
+  appearance: none;
+}
+/* .selectTagContainer::after {
+  content: ;
+} */
+/* .selectTagContainer {
+  position: relative;
+}
+.selectTagContainer::after {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+} */
+
+.hrLine {
+  border-bottom: 3px solid #000;
+  width: 20px;
+}
+.btnStyle {
+  background-color: #dcf4e4;
+  width: fit-content;
+  padding: 12px 6px;
+  margin-left: 8px;
+}
+.indicatorStyle {
+  margin-right: 12px;
+}
