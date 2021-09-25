@@ -1,0 +1,7 @@
+.inputStyle{
+    border: 1px solid red;
+    border-radius: 4px;
+}
+.inputStyle:hover{
+    border: 1px solid blue;
+}

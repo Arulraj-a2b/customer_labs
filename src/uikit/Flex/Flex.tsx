@@ -1,4 +1,4 @@
-import { CSSProperties, ReactChild, ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import classNames from "classnames/bind";
 import styles from "./flex.module.css";
 
@@ -43,7 +43,7 @@ const Flex = ({
   middle,
   style,
 }: Props) => {
-  const textClassName = cx(
+  const flexClassName = cx(
     "commonStyle",
     {
       row,
@@ -64,10 +64,13 @@ const Flex = ({
     className
   );
   return (
-    <div style={style} className={textClassName}>
+    <div style={style} className={flexClassName}>
       {children}
     </div>
   );
 };
-
+const defaultProps = {
+  column: true,
+};
+Flex.defaultProps = defaultProps;
 export default Flex;

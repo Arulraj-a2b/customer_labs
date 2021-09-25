@@ -1,0 +1,15 @@
+.commonStyle {
+  background-color: tomato;
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+}
+.error {
+  background-color: #eb2127;
+}
+.success {
+  background-color: green;
+}
+.lableStyle{
+    padding-left: 16px;
+}

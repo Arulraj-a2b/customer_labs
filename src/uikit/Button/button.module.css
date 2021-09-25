@@ -1,0 +1,24 @@
+.commonStyle{
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+.primary{
+    background-color: #37b4af;
+    color: #fff;
+}
+
+.secondary{
+    background-color: #fff;
+    color: #eb2127;
+}
+.link{
+    color: green;
+    font-size: 16px;
+}
+.transparent{
+    color: #fff;
+    border: 2px solid #fff;
+    background-color: transparent;
+}

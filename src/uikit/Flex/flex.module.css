@@ -4,12 +4,9 @@
 .reverse {
   flex-direction: row-reverse;
 }
-.commonStyle {
-  flex-direction: column;
-  display: flex;
-}
 .column {
   flex-direction: column;
+  display: flex;
 }
 
 .columnReverse {
