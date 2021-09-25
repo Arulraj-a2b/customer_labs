@@ -8,6 +8,9 @@
   flex-direction: column;
   display: flex;
 }
+.row{
+  flex-direction: row;
+}
 
 .columnReverse {
   flex-direction: column-reverse;
@@ -18,7 +21,7 @@
 }
 
 .center {
-  justify-content: center;
+  align-items: center;
 }
 
 .end {
@@ -38,7 +41,7 @@
 }
 
 .middle {
-  align-items: center;
+  justify-content: center;
 }
 
 .bottom {

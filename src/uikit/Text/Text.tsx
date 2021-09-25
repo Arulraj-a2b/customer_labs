@@ -20,7 +20,7 @@ type textSize =
   | 36
   | 38
   | 40;
-  
+
 type textColors = "black" | "white";
 type Props = {
   children: ReactNode;
@@ -29,10 +29,18 @@ type Props = {
   className?: String;
   align?: "center" | "right" | "left";
   bold?: boolean;
-  style?: CSSProperties
+  style?: CSSProperties;
 };
 
-const Text = ({ children, size, className, bold, align, color,style }: Props) => {
+const Text = ({
+  children,
+  size,
+  className,
+  bold,
+  align,
+  color,
+  style,
+}: Props) => {
   const textClassName = cx(
     {
       [`text-${size}`]: size,
@@ -40,9 +48,17 @@ const Text = ({ children, size, className, bold, align, color,style }: Props) =>
       [`textAlign-${align}`]: align,
       [`textColor-${color}`]: color,
     },
-    className,
+    className
   );
-  return <span style={style} className={textClassName}>{children}</span>;
+  return (
+    <span style={style} className={textClassName}>
+      {children}
+    </span>
+  );
 };
 
+const defaultProps = {
+  size: 16,
+};
+Text.defaultProps = defaultProps;
 export default Text;

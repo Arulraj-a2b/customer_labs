@@ -1,0 +1,12 @@
+.overAll {
+  background-color: #4036367a;
+  width: 100%;
+  position: fixed;
+}
+.sideNav {
+  background-color: #ffff;
+  width: 400px;
+  right: 0;
+  height: 100%;
+  position: absolute;
+}

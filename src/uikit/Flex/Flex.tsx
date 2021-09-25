@@ -22,6 +22,7 @@ type Props = {
   wrap?: boolean;
   noWrap?: boolean;
   style?: CSSProperties;
+  onClick?: ()=>void
 };
 
 const Flex = ({
@@ -42,6 +43,7 @@ const Flex = ({
   noWrap,
   middle,
   style,
+  onClick
 }: Props) => {
   const flexClassName = cx(
     "commonStyle",
@@ -64,7 +66,7 @@ const Flex = ({
     className
   );
   return (
-    <div style={style} className={flexClassName}>
+    <div onClick={onClick} style={style} className={flexClassName}>
       {children}
     </div>
   );

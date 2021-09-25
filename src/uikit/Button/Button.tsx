@@ -11,6 +11,7 @@ type Props = {
   link?: boolean;
   transparent?: boolean;
   style?: CSSProperties;
+  onClick?: ()=>void
 };
 const Button = ({
   children,
@@ -20,6 +21,7 @@ const Button = ({
   link,
   transparent,
   style,
+  onClick
 }: Props) => {
   const buttonClassName = cx(
     "commonStyle",
@@ -32,7 +34,7 @@ const Button = ({
     className
   );
   return (
-    <button style={style} className={buttonClassName}>
+    <button onClick={onClick} style={style} className={buttonClassName}>
       {children}
     </button>
   );
