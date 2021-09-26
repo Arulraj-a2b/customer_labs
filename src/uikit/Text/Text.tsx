@@ -21,7 +21,7 @@ type textSize =
   | 38
   | 40;
 
-type textColors = "black" | "white";
+type textColors = "black" | "white" | "error";
 type Props = {
   children: ReactNode;
   size?: textSize;

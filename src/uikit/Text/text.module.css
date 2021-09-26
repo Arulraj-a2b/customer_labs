@@ -55,3 +55,6 @@
 .textColor-white{
     color: #fff;
 }
+.textColor-error{
+  color: red;
+}

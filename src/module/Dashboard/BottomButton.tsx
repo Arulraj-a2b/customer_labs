@@ -1,11 +1,19 @@
 import Button from "../../uikit/Button/Button";
 import Flex from "../../uikit/Flex/Flex";
 import styles from "./bottombutton.module.css";
-
-const BottomButton = () => {
+type Props = {
+  onClick: Function;
+  disabled: boolean;
+};
+const BottomButton = ({ onClick, disabled }: Props) => {
   return (
     <Flex row center className={styles.bottomContainer}>
-      <Button success className={styles.saveBtn}>
+      <Button
+        disabled={disabled}
+        onClick={() => onClick()}
+        className={styles.saveBtn}
+        style={{ backgroundColor: disabled ? "gray" : "green" }}
+      >
         Save The Segment
       </Button>
       <Button secondary>Cancel</Button>
@@ -13,4 +21,4 @@ const BottomButton = () => {
   );
 };
 
-export default BottomButton
+export default BottomButton;

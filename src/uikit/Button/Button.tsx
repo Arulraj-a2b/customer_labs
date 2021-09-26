@@ -34,7 +34,7 @@ const Button = ({
       secondary,
       link,
       transparent,
-      success
+      success,
     },
     className
   );
