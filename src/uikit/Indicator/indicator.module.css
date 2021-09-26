@@ -1,5 +1,4 @@
 .commonStyle {
-  background-color: tomato;
   width: 14px;
   height: 14px;
   border-radius: 100%;
@@ -12,4 +11,8 @@
 }
 .lableStyle {
   padding-left: 8px;
+}
+
+.grey {
+  background-color: grey;
 }

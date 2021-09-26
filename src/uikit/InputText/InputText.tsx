@@ -4,6 +4,7 @@ import Flex from "../Flex/Flex";
 import Text from "../Text/Text";
 import { isEmpty } from "../helpers";
 import styles from "./inputtext.module.css";
+import { ErrorMessage } from "formik";
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   label?: string;
   onChange?: any;
   name?: string;
+  errorName?: any;
 };
 const InputText = ({
   onChange,
@@ -23,6 +25,7 @@ const InputText = ({
   value,
   label,
   name,
+  errorName,
 }: Props) => {
   const flexClassName = cx("inputStyle", {}, className);
   return (
@@ -36,6 +39,13 @@ const InputText = ({
         className={flexClassName}
         style={style}
       />
+      <ErrorMessage name={errorName}>
+        {(msg) => (
+          <Text size={14} color="error">
+            {msg}
+          </Text>
+        )}
+      </ErrorMessage>
     </Flex>
   );
 };

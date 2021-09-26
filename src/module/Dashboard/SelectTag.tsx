@@ -1,20 +1,19 @@
-import Flex from "../Flex/Flex";
 import classNames from "classnames/bind";
-import styles from "./select.module.css";
-import Button from "../Button/Button";
-import Indicator, { indicatorColor } from "../Indicator/Indicator";
+import styles from "./selecttag.module.css";
 import { InitialValues } from "../../module/Dashboard/AddMore";
+import Indicator, { IndicatorColor } from "../../uikit/Indicator/Indicator";
+import Flex from "../../uikit/Flex/Flex";
+import Button from "../../uikit/Button/Button";
+import Toast from "../../uikit/Toast/Toast";
 
 const cx = classNames.bind(styles);
 export type list = {
   [key: string]: any;
 };
 type Props = {
-  indicatorColor?: indicatorColor;
   idkey?: string;
   namekey?: string;
   options?: list[];
-  removeOnClick?: () => void;
   removeDisabled?: boolean;
   onChange?: any;
   placeholder?: string;
@@ -23,51 +22,62 @@ type Props = {
   setFieldValue: Function;
   values: InitialValues;
   value: string;
-  handleInsert: Function
 };
-const Select = ({
-  indicatorColor,
+const SelectTag = ({
   namekey,
   idkey,
   options,
-  removeOnClick,
   removeDisabled,
-  onChange,
-  placeholder,
   remove,
   setFieldValue,
   index,
   values,
   value,
-  handleInsert
 }: Props) => {
-
+  const handleColorHelper = () => {
+    let color: IndicatorColor = "grey";
+    const value = values.nameList[index].value;
+    if (
+      value === "first_name" ||
+      value === "last_name" ||
+      value === "age" ||
+      value === "gender"
+    ) {
+      color = "success";
+    } else if (value === "account_name" || value === "city") {
+      color = "error";
+    } else {
+      color = "grey";
+    }
+    return color;
+  };
 
   return (
     <Flex row center className={cx("selectTagContainer")}>
-      <Indicator color={indicatorColor} className={styles.indicatorStyle} />
+      <Indicator
+        color={handleColorHelper()}
+        className={styles.indicatorStyle}
+      />
       <select
+        required
         value={value}
         onChange={(event) => {
-          if(!values.selectedOptions.includes(event.target.value)){
+          if (!values.selectedOptions.includes(event.target.value)) {
             const preArray = values.selectedOptions.slice(0, index);
             const nextArray = values.selectedOptions.slice(index + 1);
             const reqArray = [...preArray, event.target.value, ...nextArray];
-  
             setFieldValue("selectedOptions", reqArray);
             setFieldValue(`nameList[${index}].value`, event.target.value);
-          }else{
-            //add toast
+          } else {
+            Toast("Already Selected");
           }
-          
-
         }}
         className={cx("selectStyle")}
         name={namekey}
         id={idkey}
       >
-        <option style={{ color: "gray" }} value={""} disabled selected>
-          {"placeholder"}
+        <option value="" disabled selected hidden>
+          Add schema to segment
         </option>
         {options &&
           options.map((list) => {
@@ -85,4 +95,4 @@ const Select = ({
   );
 };
 
-export default Select;
+export default SelectTag;

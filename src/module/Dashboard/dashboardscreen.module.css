@@ -1,8 +1,8 @@
 .saveBtn{
     margin-top: 40px;
     max-width: 250px;
+    margin-left: 32px;
 }
 .zindex{
     z-index: 11;
-    margin-left: 32px;
 }

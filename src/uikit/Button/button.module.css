@@ -38,15 +38,19 @@
 .link:active {
   color: greenyellow;
 }
-.success{
+.success {
   background-color: green;
   color: #fff;
 }
-.success:hover{
+.success:hover {
   opacity: 0.75;
 }
 .transparent {
   color: #fff;
   border: 2px solid #fff;
   background-color: transparent;
+}
+.disabled {
+  cursor: not-allowed;
+  background-color: gray;
 }

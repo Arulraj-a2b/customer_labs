@@ -1,45 +1,19 @@
-import { ErrorMessage, FieldArray, Formik } from "formik";
+import { FieldArray, Formik } from "formik";
 import Button from "../../uikit/Button/Button";
 import Flex from "../../uikit/Flex/Flex";
-import Select from "../../uikit/Select/Select";
 import BottomButton from "./BottomButton";
-// import classNames from "classnames/bind";
-import styles from "./sidenav.module.css";
+import styles from "./addmore.module.css";
 import InputText from "../../uikit/InputText/InputText";
 import Indicator from "../../uikit/Indicator/Indicator";
 import Text from "../../uikit/Text/Text";
+import Toast from "../../uikit/Toast/Toast";
+import { options } from "./mock";
+import SelectTag from "./SelectTag";
 
 export type FieldArrayType = {
   options: { value: string; label: string }[];
   value: string;
 };
-
-const options = [
-  {
-    value: "first_name",
-    label: "First Name",
-  },
-  {
-    value: "last_name",
-    label: "Last Name",
-  },
-  {
-    value: "age",
-    label: "Age",
-  },
-  {
-    value: "gender",
-    label: "Gender",
-  },
-  {
-    value: "account_name",
-    label: "Account Name",
-  },
-  {
-    value: "city",
-    label: "City",
-  },
-];
 
 const INITIALOBJECT = {
   options,
@@ -59,24 +33,23 @@ const updateInitialState = (): InitialValues => {
   };
 };
 
-const AddMore = () => {
-  const postData = async (url:string, data:any) => {
-    // Default options are marked with *
+const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
+  const postData = async (url: string, data: any) => {
     const response = await fetch(url, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
     });
-    return response.json(); // parses JSON response into native JavaScript objects
+    return response.json();
   };
+
   const handleInsert = (
     push: (obj: FieldArrayType) => void,
     values: InitialValues
@@ -86,19 +59,40 @@ const AddMore = () => {
     );
     push({ options: filteredArray, value: "" });
   };
+
   const handleValidation = (values: InitialValues) => {
     const error: Partial<InitialValues> = {};
-
     if (values.segment_name === "") {
       error.segment_name = "This Field is Required";
     }
     return error;
   };
-  const handleSubmit=(values:InitialValues)=>{
-    console.log('values',values);
-    
-    postData('https://ba4c729a-5064-4479-912a-b22294a7383a.mock.pstmn.io/add_segment',{})
-  }
+
+  const handleSubmit = (values: InitialValues) => {
+    const reqObj = options.reduce((acc, curval) => {
+      if (values.selectedOptions.includes(curval.value)) {
+        return {
+          ...acc,
+          [curval.value]: curval.label,
+        };
+      }
+      return acc;
+    }, {});
+
+    const data = {
+      segment_name: values.segment_name,
+      schema: reqObj,
+    };
+
+    postData(
+      "https://ba4c729a-5064-4479-912a-b22294a7383a.mock.pstmn.io/add_segment",
+      data
+    ).then((data) => {
+      console.log("data", data.message);
+      Toast(data.message, "SHORT");
+    });
+  };
+
   return (
     <Formik
       initialValues={updateInitialState()}
@@ -116,21 +110,15 @@ const AddMore = () => {
                   placeholder={"Name of the Segment"}
                   value={values.segment_name}
                   onChange={handleChange("segment_name")}
+                  errorName={"segment_name"}
                 />
-                <ErrorMessage name="segment_name">
-                  {(msg) => (
-                    <Text size={14} color="error">
-                      {msg}
-                    </Text>
-                  )}
-                </ErrorMessage>
               </Flex>
               <Text>
                 To save your segment,you need to add the schemas to build the
                 query
               </Text>
               <Flex row center end className={styles.indicatorContainer}>
-                <Flex style={{ marginRight: 12 }}>
+                <Flex className={styles.successIndicator}>
                   <Indicator color="success" label="- User Traits" />
                 </Flex>
                 <Indicator color="error" label="- Groups Traits" />
@@ -142,16 +130,15 @@ const AddMore = () => {
                   <>
                     {values.nameList.map((item, index) => {
                       return (
-                        <div key={item.value}>
-                          <Select
+                        <div className={styles.selectTag} key={item.value}>
+                          <SelectTag
                             options={item.options}
-                            indicatorColor={"error"}
                             remove={remove}
                             index={index}
                             setFieldValue={setFieldValue}
                             values={values}
                             value={item.value}
-                            handleInsert={() => handleInsert(push, values)}
+                            idkey={"select"}
                           />
                         </div>
                       );
@@ -167,9 +154,14 @@ const AddMore = () => {
                 );
               }}
             </FieldArray>
+            {console.log("values.nameList", values.nameList.length === 0)}
             <BottomButton
-              disabled={values.selectedOptions.length === 0}
+              disabled={
+                values.nameList.length === 0 ||
+                values.selectedOptions.length === 0
+              }
               onClick={handleSubmit}
+              cancelOnClick={cancelOnClick}
             />
           </>
         );

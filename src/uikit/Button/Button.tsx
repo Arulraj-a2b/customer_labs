@@ -35,6 +35,7 @@ const Button = ({
       link,
       transparent,
       success,
+      disabled,
     },
     className
   );

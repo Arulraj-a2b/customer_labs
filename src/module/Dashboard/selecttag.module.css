@@ -10,18 +10,6 @@
 .selectTagContainer select {
   appearance: none;
 }
-/* .selectTagContainer::after {
-  content: ;
-} */
-/* .selectTagContainer {
-  position: relative;
-}
-.selectTagContainer::after {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-} */
-
 .hrLine {
   border-bottom: 3px solid #000;
   width: 20px;
