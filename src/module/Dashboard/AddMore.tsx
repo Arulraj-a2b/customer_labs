@@ -143,6 +143,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                         </div>
                       );
                     })}
+
                     <Button
                       onClick={() => handleInsert(push, values)}
                       link
@@ -154,7 +155,6 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                 );
               }}
             </FieldArray>
-            {console.log("values.nameList", values.nameList.length === 0)}
             <BottomButton
               disabled={
                 values.nameList.length === 0 ||
