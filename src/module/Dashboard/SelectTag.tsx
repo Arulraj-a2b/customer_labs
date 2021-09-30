@@ -53,7 +53,10 @@ Props) => {
     }
     return color;
   };
-
+  const handleRemove = () => {
+    remove(index);
+    values.selectedOptions.splice(index, 1);
+  };
   return (
     <Flex row center className={cx("selectTagContainer")}>
       <Indicator
@@ -88,7 +91,7 @@ Props) => {
       </select>
       <Button
         disabled={removeDisabled}
-        onClick={() => remove(index)}
+        onClick={handleRemove}
         className={styles.btnStyle}
       >
         <div className={styles.hrLine} />
