@@ -13,7 +13,7 @@ export type list = {
 type Props = {
   idkey?: string;
   namekey?: string;
-  options?: list[];
+  options?: any;
   removeDisabled?: boolean;
   onChange?: any;
   placeholder?: string;
@@ -22,6 +22,7 @@ type Props = {
   setFieldValue: Function;
   values: InitialValues;
   value: string;
+  // setSelectedOtp: any
 };
 const SelectTag = ({
   namekey,
@@ -33,7 +34,8 @@ const SelectTag = ({
   index,
   values,
   value,
-}: Props) => {
+}: // setSelectedOtp,
+Props) => {
   const handleColorHelper = () => {
     let color: IndicatorColor = "grey";
     const value = values.nameList[index].value;
@@ -80,7 +82,7 @@ const SelectTag = ({
           Add schema to segment
         </option>
         {options &&
-          options.map((list) => {
+          options.map((list: any) => {
             return <option value={list.value}>{list.label}</option>;
           })}
       </select>

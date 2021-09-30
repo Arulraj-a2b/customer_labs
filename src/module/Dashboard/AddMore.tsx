@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FieldArray, Formik } from "formik";
 import Button from "../../uikit/Button/Button";
 import Flex from "../../uikit/Flex/Flex";
@@ -9,6 +10,7 @@ import Text from "../../uikit/Text/Text";
 import Toast from "../../uikit/Toast/Toast";
 import { options } from "./mock";
 import SelectTag from "./SelectTag";
+import { isEmpty } from "../../uikit/helpers";
 
 export type FieldArrayType = {
   options: { value: string; label: string }[];
@@ -34,6 +36,8 @@ const updateInitialState = (): InitialValues => {
 };
 
 const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
+  const [isValue, setValue] = useState(true);
+  // const [selectedOpt, setSelectedOtp] = useState<string[]>([])
   const postData = async (url: string, data: any) => {
     const response = await fetch(url, {
       method: "POST",
@@ -88,7 +92,6 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
       "https://ba4c729a-5064-4479-912a-b22294a7383a.mock.pstmn.io/add_segment",
       data
     ).then((data) => {
-      console.log("data", data.message);
       Toast(data.message, "SHORT");
     });
   };
@@ -129,6 +132,12 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                 return (
                   <>
                     {values.nameList.map((item, index) => {
+                      if (!isEmpty(item.value)) {
+                        setValue(false);
+                      }
+                      if (isEmpty(item.value)) {
+                        setValue(true);
+                      }
                       return (
                         <div className={styles.selectTag} key={item.value}>
                           <SelectTag
@@ -136,6 +145,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                             remove={remove}
                             index={index}
                             setFieldValue={setFieldValue}
+                            // setSelectedOtp={setSelectedOtp}
                             values={values}
                             value={item.value}
                             idkey={"select"}
@@ -148,6 +158,8 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                       onClick={() => handleInsert(push, values)}
                       link
                       className={styles.addBtn}
+                      disabled={isValue}
+                      style={{ color: !isValue ? "green" : "gray" }}
                     >
                       + Add new schema
                     </Button>
