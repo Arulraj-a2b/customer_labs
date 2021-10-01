@@ -51,7 +51,6 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     });
     return response.json();
   };
-  console.log("selectedOpt", selectedOpt);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -81,8 +80,9 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
   const requiredOptions = options.filter(
     (opt) => !selectedOpt.includes(opt.value)
   );
-  console.log("requiredOptions.length === 0", requiredOptions.length);
+
   const requiredOptionsLength = requiredOptions.length === 1;
+  
   return (
     <form onSubmit={handleSubmit} className={styles.from}>
       <Flex className={styles.segmentNameContainer}>
