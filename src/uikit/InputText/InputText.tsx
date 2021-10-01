@@ -15,7 +15,7 @@ type Props = {
   label?: string;
   onChange?: any;
   name?: string;
-  errorName?: any;
+  required?:boolean;
 };
 const InputText = ({
   onChange,
@@ -25,13 +25,14 @@ const InputText = ({
   value,
   label,
   name,
-  errorName,
+  required
 }: Props) => {
   const flexClassName = cx("inputStyle", {}, className);
   return (
     <Flex>
       {!isEmpty(label) && <Text className={styles.label}>{label}</Text>}
       <input
+      required={required}
         name={name}
         onChange={onChange}
         value={value}
@@ -39,13 +40,6 @@ const InputText = ({
         className={flexClassName}
         style={style}
       />
-      <ErrorMessage name={errorName}>
-        {(msg) => (
-          <Text size={14} color="error">
-            {msg}
-          </Text>
-        )}
-      </ErrorMessage>
     </Flex>
   );
 };

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { FieldArray, Formik } from "formik";
-import Button from "../../uikit/Button/Button";
 import Flex from "../../uikit/Flex/Flex";
 import BottomButton from "./BottomButton";
 import styles from "./addmore.module.css";
@@ -8,36 +6,36 @@ import InputText from "../../uikit/InputText/InputText";
 import Indicator from "../../uikit/Indicator/Indicator";
 import Text from "../../uikit/Text/Text";
 import Toast from "../../uikit/Toast/Toast";
+import Button from "../../uikit/Button/Button";
 import { options } from "./mock";
-import SelectTag from "./SelectTag";
-import { isEmpty } from "../../uikit/helpers";
-
-export type FieldArrayType = {
-  options: { value: string; label: string }[];
-  value: string;
-};
-
-const INITIALOBJECT = {
-  options,
-  value: "",
-};
-export type InitialValues = {
-  segment_name: string;
-  nameList: FieldArrayType[];
-  selectedOptions: string[];
-};
-
-const updateInitialState = (): InitialValues => {
-  return {
-    segment_name: "",
-    nameList: [INITIALOBJECT],
-    selectedOptions: [],
-  };
-};
+import { isEmpty, removeUnderScores } from "../../uikit/helpers";
 
 const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
-  const [isValue, setValue] = useState(true);
-  // const [selectedOpt, setSelectedOtp] = useState<string[]>([])
+  const [selectedOpt, setSelectedOtp] = useState<any>([]);
+  const [selectFields, setSelectFields] = useState<any>([{ value: "" }]);
+  const [segmentName, setSegmentName] = useState("");
+  const handleAddFields = () => {
+    const values = [...selectFields];
+    values.push({});
+    setSelectFields(values);
+  };
+
+  const handleRemoveFields = (index: number) => {
+    const values = [...selectFields];
+    values.splice(index, 1);
+    selectedOpt.splice(index, 1);
+    setSelectFields(values);
+  };
+
+  const handleInputChange = (index: number, event: any) => {
+    const values = [...selectFields];
+    values[index].value = event.target.value;
+    const preArray = selectedOpt.slice(0, index);
+    const nextArray = selectedOpt.slice(index + 1);
+    const reqArray = [...preArray, event.target.value, ...nextArray];
+    setSelectedOtp(reqArray);
+  };
+
   const postData = async (url: string, data: any) => {
     const response = await fetch(url, {
       method: "POST",
@@ -53,28 +51,12 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     });
     return response.json();
   };
+  console.log("selectedOpt", selectedOpt);
 
-  const handleInsert = (
-    push: (obj: FieldArrayType) => void,
-    values: InitialValues
-  ) => {
-    const filteredArray: { value: string; label: string }[] = options.filter(
-      (item) => !values.selectedOptions.includes(item.value)
-    );
-    push({ options: filteredArray, value: "" });
-  };
-
-  const handleValidation = (values: InitialValues) => {
-    const error: Partial<InitialValues> = {};
-    if (values.segment_name === "") {
-      error.segment_name = "This Field is Required";
-    }
-    return error;
-  };
-
-  const handleSubmit = (values: InitialValues) => {
-    const reqObj = options.reduce((acc, curval) => {
-      if (values.selectedOptions.includes(curval.value)) {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const reqObj = options.reduce((acc, curval: any) => {
+      if (selectedOpt.includes(curval.value)) {
         return {
           ...acc,
           [curval.value]: curval.label,
@@ -84,7 +66,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     }, {});
 
     const data = {
-      segment_name: values.segment_name,
+      segment_name: segmentName,
       schema: reqObj,
     };
 
@@ -96,89 +78,102 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     });
   };
 
+  const requiredOptions = options.filter(
+    (opt) => !selectedOpt.includes(opt.value)
+  );
+  console.log("requiredOptions.length === 0", requiredOptions.length);
+  const requiredOptionsLength = requiredOptions.length === 1;
   return (
-    <Formik
-      initialValues={updateInitialState()}
-      onSubmit={handleSubmit}
-      enableReinitialize
-      validate={handleValidation}
-    >
-      {({ values, setFieldValue, handleSubmit, handleChange }) => {
-        return (
-          <>
-            <Flex className={styles.inputContainer}>
-              <Flex className={styles.inputStyle}>
-                <InputText
-                  label={"Enter the Name of the Segment"}
-                  placeholder={"Name of the Segment"}
-                  value={values.segment_name}
-                  onChange={handleChange("segment_name")}
-                  errorName={"segment_name"}
-                />
-              </Flex>
-              <Text>
-                To save your segment,you need to add the schemas to build the
-                query
-              </Text>
-              <Flex row center end className={styles.indicatorContainer}>
-                <Flex className={styles.successIndicator}>
-                  <Indicator color="success" label="- User Traits" />
-                </Flex>
-                <Indicator color="error" label="- Groups Traits" />
+    <form onSubmit={handleSubmit} className={styles.from}>
+      <Flex className={styles.segmentNameContainer}>
+        <Flex className={styles.inputStyle}>
+          <InputText
+            required
+            label={"Enter the Name of the Segment"}
+            placeholder={"Name of the Segment"}
+            value={segmentName}
+            onChange={(e: any) => setSegmentName(e.target.value)}
+          />
+        </Flex>
+        <Text>
+          To save your segment,you need to add the schemas to build the query
+        </Text>
+        <Flex row center end className={styles.indicatorContainer}>
+          <Flex className={styles.successIndicator}>
+            <Indicator color="success" label="- User Traits" />
+          </Flex>
+          <Indicator color="error" label="- Groups Traits" />
+        </Flex>
+      </Flex>
+      <Flex className={styles.selectTagContainer}>
+        {selectFields.map((item: any, index: number) => {
+          return (
+            <Flex className={styles.selectFlexContainer}>
+              {!isEmpty(item.value) && (
+                <Text className={styles.valueText}>
+                  {removeUnderScores(item.value)}
+                </Text>
+              )}
+              {isEmpty(item.value) && (
+                <Text color="gray" className={styles.valueText}>
+                  Add schema to segment
+                </Text>
+              )}
+
+              <Flex
+                className={styles.select}
+                row
+                center
+                key={`${item}~${index}`}
+              >
+                <select
+                  className={styles.selectStyle}
+                  id={"value"}
+                  name="value"
+                  value={item.value}
+                  onChange={(event) => handleInputChange(index, event)}
+                >
+                  {requiredOptions.map((list: any, index) => {
+                    return (
+                      <option
+                        hidden={list.value === ""}
+                        key={index}
+                        value={list.value}
+                      >
+                        {list.label}
+                      </option>
+                    );
+                  })}
+                </select>
+
+                <Button
+                  type="button"
+                  onClick={() => handleRemoveFields(index)}
+                  className={styles.btnStyle}
+                >
+                  <div className={styles.hrLine} />
+                </Button>
               </Flex>
             </Flex>
-            <FieldArray name="nameList">
-              {({ remove, push }) => {
-                return (
-                  <>
-                    {values.nameList.map((item, index) => {
-                      if (!isEmpty(item.value)) {
-                        setValue(false);
-                      }
-                      if (isEmpty(item.value)) {
-                        setValue(true);
-                      }
-                      return (
-                        <div className={styles.selectTag} key={item.value}>
-                          <SelectTag
-                            options={item.options}
-                            remove={remove}
-                            index={index}
-                            setFieldValue={setFieldValue}
-                            // setSelectedOtp={setSelectedOtp}
-                            values={values}
-                            value={item.value}
-                            idkey={"select"}
-                          />
-                        </div>
-                      );
-                    })}
-
-                    <Button
-                      onClick={() => handleInsert(push, values)}
-                      link
-                      className={styles.addBtn}
-                      disabled={isValue}
-                      style={{ color: !isValue ? "green" : "gray" }}
-                    >
-                      + Add new schema
-                    </Button>
-                  </>
-                );
-              }}
-            </FieldArray>
-            <BottomButton
-              disabled={
-                values.nameList.length === 0 ||
-                values.selectedOptions.length === 0
-              }
-              onClick={handleSubmit}
-              cancelOnClick={cancelOnClick}
-            />
-          </>
-        );
-      }}
-    </Formik>
+          );
+        })}
+      </Flex>
+      <Button
+        type="button"
+        link
+        className={styles.addBtn}
+        onClick={() => handleAddFields()}
+        disabled={requiredOptionsLength}
+        style={{ color: requiredOptionsLength ? "gray" : "green" }}
+      >
+        + Add new schema
+      </Button>
+      <BottomButton
+        onClick={handleSubmit}
+        cancelOnClick={cancelOnClick}
+        disabled={isEmpty(segmentName)}
+      />
+    </form>
   );
 };
 

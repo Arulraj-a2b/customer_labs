@@ -13,7 +13,9 @@ type Props = {
   style?: CSSProperties;
   onClick?: () => void;
   success?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
+  onSubmit?: any 
 };
 const Button = ({
   children,
@@ -25,7 +27,9 @@ const Button = ({
   style,
   onClick,
   success,
-  disabled
+  disabled,
+  type,
+  onSubmit
 }: Props) => {
   const buttonClassName = cx(
     "commonStyle",
@@ -40,7 +44,14 @@ const Button = ({
     className
   );
   return (
-    <button disabled={disabled} onClick={onClick} style={style} className={buttonClassName}>
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      style={style}
+      className={buttonClassName}
+      onSubmit={onSubmit}
+    >
       {children}
     </button>
   );
