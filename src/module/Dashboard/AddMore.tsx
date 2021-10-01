@@ -11,7 +11,7 @@ import { options } from "./mock";
 import { isEmpty, removeUnderScores } from "../../uikit/helpers";
 
 const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
-  const [selectedOpt, setSelectedOtp] = useState<any>([]);
+  const [selectedOpt, setSelectedOpt] = useState<any>([]);
   const [selectFields, setSelectFields] = useState<any>([{ value: "" }]);
   const [segmentName, setSegmentName] = useState("");
   const handleAddFields = () => {
@@ -33,7 +33,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     const preArray = selectedOpt.slice(0, index);
     const nextArray = selectedOpt.slice(index + 1);
     const reqArray = [...preArray, event.target.value, ...nextArray];
-    setSelectedOtp(reqArray);
+    setSelectedOpt(reqArray);
   };
 
   const postData = async (url: string, data: any) => {
