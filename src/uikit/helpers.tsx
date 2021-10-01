@@ -1,3 +1,5 @@
+import { IndicatorColor } from "./Indicator/Indicator";
+
 export type IsEmptyValueType =
   | string
   | number
@@ -14,4 +16,21 @@ export const removeUnderScores = (status: string) => {
     return status.replace(/_/g, " ");
   }
   return "";
+};
+
+export const handleColorHelper = (value: string) => {
+  let color: IndicatorColor = "grey";
+  if (
+    value === "first_name" ||
+    value === "last_name" ||
+    value === "age" ||
+    value === "gender"
+  ) {
+    color = "success";
+  } else if (value === "account_name" || value === "city") {
+    color = "error";
+  } else {
+    color = "grey";
+  }
+  return color;
 };

@@ -3,12 +3,16 @@ import Flex from "../../uikit/Flex/Flex";
 import BottomButton from "./BottomButton";
 import styles from "./addmore.module.css";
 import InputText from "../../uikit/InputText/InputText";
-import Indicator from "../../uikit/Indicator/Indicator";
+import Indicator, { IndicatorColor } from "../../uikit/Indicator/Indicator";
 import Text from "../../uikit/Text/Text";
 import Toast from "../../uikit/Toast/Toast";
 import Button from "../../uikit/Button/Button";
 import { options } from "./mock";
-import { isEmpty, removeUnderScores } from "../../uikit/helpers";
+import {
+  handleColorHelper,
+  isEmpty,
+  removeUnderScores,
+} from "../../uikit/helpers";
 
 const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
   const [selectedOpt, setSelectedOpt] = useState<any>([]);
@@ -82,7 +86,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
   );
 
   const requiredOptionsLength = requiredOptions.length === 1;
-  
+
   return (
     <form onSubmit={handleSubmit} className={styles.from}>
       <Flex className={styles.segmentNameContainer}>
@@ -126,6 +130,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                 center
                 key={`${item}~${index}`}
               >
+                <Indicator color={handleColorHelper(item.value)} />
                 <select
                   className={styles.selectStyle}
                   id={"value"}

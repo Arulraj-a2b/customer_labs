@@ -27,6 +27,7 @@
   border-radius: 4px;
   border-color: #cccccc;
   color: #fff;
+  margin: 0 0 0 16px;
 }
 .select select {
   appearance: none;
@@ -41,7 +42,7 @@
   text-transform: capitalize;
   width: fit-content;
   position: absolute;
-  left: 16px;
+  left: 44px;
   top: 36px;
 }
 .segmentNameContainer {
