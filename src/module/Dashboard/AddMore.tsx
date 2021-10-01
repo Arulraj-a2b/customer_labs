@@ -8,16 +8,15 @@ import Text from "../../uikit/Text/Text";
 import Toast from "../../uikit/Toast/Toast";
 import Button from "../../uikit/Button/Button";
 import { options } from "./mock";
-import {
-  handleColorHelper,
-  isEmpty,
-  removeUnderScores,
-} from "../../uikit/helpers";
+import { isEmpty } from "../../uikit/helpers";
+import SelectTag from "./SelectTag";
 
 const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
   const [selectedOpt, setSelectedOpt] = useState<any>([]);
   const [selectFields, setSelectFields] = useState<any>([{ value: "" }]);
   const [segmentName, setSegmentName] = useState("");
+  const [isValue, setValue] = useState(true);
+
   const handleAddFields = () => {
     const values = [...selectFields];
     values.push({});
@@ -85,7 +84,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     (opt) => !selectedOpt.includes(opt.value)
   );
 
-  const requiredOptionsLength = requiredOptions.length === 1;
+  const addMore = requiredOptions.length === 1 || isValue;
 
   return (
     <form onSubmit={handleSubmit} className={styles.from}>
@@ -112,52 +111,14 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
       <Flex className={styles.selectTagContainer}>
         {selectFields.map((item: any, index: number) => {
           return (
-            <Flex
-              key={`${item}~${index}`}
-              className={styles.selectFlexContainer}
-            >
-              {!isEmpty(item.value) && (
-                <Text className={styles.valueText}>
-                  {removeUnderScores(item.value)}
-                </Text>
-              )}
-              {isEmpty(item.value) && (
-                <Text color="gray" className={styles.valueText}>
-                  Add schema to segment
-                </Text>
-              )}
-
-              <Flex className={styles.select} row center>
-                <Indicator color={handleColorHelper(item.value)} />
-                <select
-                  className={styles.selectStyle}
-                  id={"value"}
-                  name="value"
-                  value={item.value}
-                  onChange={(event) => handleInputChange(index, event)}
-                >
-                  {requiredOptions.map((list: any, index) => {
-                    return (
-                      <option
-                        hidden={list.value === ""}
-                        key={index}
-                        value={list.value}
-                      >
-                        {list.label}
-                      </option>
-                    );
-                  })}
-                </select>
-
-                <Button
-                  type="button"
-                  onClick={() => handleRemoveFields(index)}
-                  className={styles.btnStyle}
-                >
-                  <div className={styles.hrLine} />
-                </Button>
-              </Flex>
-            </Flex>
+            <SelectTag
+              item={item}
+              index={index}
+              handleInputChange={handleInputChange}
+              handleRemoveFields={handleRemoveFields}
+              requiredOptions={requiredOptions}
+              setValue={setValue}
+            />
           );
         })}
       </Flex>
@@ -166,8 +127,8 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
         link
         className={styles.addBtn}
         onClick={() => handleAddFields()}
-        disabled={requiredOptionsLength}
-        style={{ color: requiredOptionsLength ? "gray" : "green" }}
+        disabled={addMore}
+        style={{ color: addMore ? "gray" : "green" }}
       >
         + Add new schema
       </Button>
