@@ -84,7 +84,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
     (opt) => !selectedOpt.includes(opt.value)
   );
 
-  const addMore = requiredOptions.length === 1 || isValue;
+  const requiredOptionsLength = requiredOptions.length === 1;
 
   return (
     <form onSubmit={handleSubmit} className={styles.from}>
@@ -127,15 +127,15 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
         link
         className={styles.addBtn}
         onClick={() => handleAddFields()}
-        disabled={addMore}
-        style={{ color: addMore ? "gray" : "green" }}
+        disabled={requiredOptionsLength || isValue}
+        style={{ color: requiredOptionsLength || isValue ? "gray" : "green" }}
       >
         + Add new schema
       </Button>
       <BottomButton
         onClick={handleSubmit}
         cancelOnClick={cancelOnClick}
-        disabled={isEmpty(segmentName)}
+        disabled={isEmpty(segmentName) || isValue}
       />
     </form>
   );
