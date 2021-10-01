@@ -3,7 +3,7 @@ import Flex from "../../uikit/Flex/Flex";
 import BottomButton from "./BottomButton";
 import styles from "./addmore.module.css";
 import InputText from "../../uikit/InputText/InputText";
-import Indicator, { IndicatorColor } from "../../uikit/Indicator/Indicator";
+import Indicator from "../../uikit/Indicator/Indicator";
 import Text from "../../uikit/Text/Text";
 import Toast from "../../uikit/Toast/Toast";
 import Button from "../../uikit/Button/Button";
@@ -112,7 +112,10 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
       <Flex className={styles.selectTagContainer}>
         {selectFields.map((item: any, index: number) => {
           return (
-            <Flex className={styles.selectFlexContainer}>
+            <Flex
+              key={`${item}~${index}`}
+              className={styles.selectFlexContainer}
+            >
               {!isEmpty(item.value) && (
                 <Text className={styles.valueText}>
                   {removeUnderScores(item.value)}
@@ -124,12 +127,7 @@ const AddMore = ({ cancelOnClick }: { cancelOnClick: () => void }) => {
                 </Text>
               )}
 
-              <Flex
-                className={styles.select}
-                row
-                center
-                key={`${item}~${index}`}
-              >
+              <Flex className={styles.select} row center>
                 <Indicator color={handleColorHelper(item.value)} />
                 <select
                   className={styles.selectStyle}
