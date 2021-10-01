@@ -2,7 +2,7 @@
   margin-bottom: 24px;
 }
 .indicatorContainer {
-  padding: 32px 0 32px 0;
+  padding: 32px 0 0px 0;
 }
 .successIndicator {
   margin-right: 12px;
@@ -52,6 +52,6 @@
   padding-top: 24px;
 }
 .from{
-  overflow: scroll;
+  overflow: overlay;
   padding-bottom: 90px;
 }
